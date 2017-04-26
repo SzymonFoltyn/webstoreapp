@@ -25,7 +25,7 @@ public class InMemoryProductRepository implements ProductRepository{
         lowShoes.setManufacturer("Salewa");
         lowShoes.setUnitsInStock(100);
         
-        Product jacket = new Product("S100", "Kurtka TNF Himalaya", new BigDecimal(1456));
+        Product jacket = new Product("K100", "Kurtka TNF Himalaya", new BigDecimal(1456));
         jacket.setDescription("Lekka kurtka wspinaczkowa z membraną Gore-Tex");
         jacket.setCategory("jacket");
         jacket.setManufacturer("The North Face");
@@ -45,5 +45,20 @@ public class InMemoryProductRepository implements ProductRepository{
 
     public List<Product> getAllProducts() {
         return listOfProducts;
+    }
+
+    public Product getProductById(String prductId) {
+
+        Product productById = null;
+        for (Product product : listOfProducts ){
+            if (product != null && product.getProductId() != null && product.getProductId().equals(prductId)) {
+                productById = product;
+                break;
+            }
+            if (productById == null) {
+                throw new IllegalArgumentException("Brak produktu o wskazanym Id: " + prductId);
+            }
+        }
+        return productById;
     }
 }
